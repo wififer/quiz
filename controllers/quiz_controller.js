@@ -19,8 +19,7 @@ if(req.query.search) {
   var busqueda = req.query.search;
   busqueda = "%" + req.query.search + "%";
   busqueda = busqueda.trim().replace(/\s/g,"%");
-
-  models.Quiz.findAll({where:["pregunta like ?", busqueda]}).then(function(quizes){
+  models.Quiz.findAll({where:["pregunta like ?", busqueda], order: 'pregunta ASC'}).then(function(quizes){
     res.render('quizes/search', {quizes: quizes});
 }).catch(function(error) { next(error);});
 } else {
