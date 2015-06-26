@@ -30,16 +30,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 // MW para controlar expiración de la sesión si inactivo
 app.use(function(req, res, next) {
 if (req.session.user) {
-if (Date.now() - req.session.user.lastRequestTime > 120000) // 2 minutos {
-console.log("CIERRO sesión por tiempo inactivo");
-delete req.session.user;
+  if (Date.now() - req.session.user.lastRequestTime > 120000) {// 2 minutos
 
-//res.redirect(req.session.redir.toString()); // redirect a path anterior a login
-} else {
-req.session.user.lastRequestTime = Date.now();
-console.log("NO CIERRO sesión por tiempo inactivo");
+  delete req.session.user;
 
-}
+  //res.redirect(req.session.redir.toString()); // redirect a path anterior a login
+  } else {
+  req.session.user.lastRequestTime = Date.now();
+
+
+  }
 }
 next();
 });
